@@ -2,6 +2,7 @@
 // the invite link, the host starts, both play a few moves, the guest reloads and gets its seat back, and the host
 // leaves. The two windows find each other through the public PeerJS broker, so this needs an internet connection.
 // Run with:  npx electron scripts/netcheck.mjs <out folder>
+// NET_BASE=https://.../handland/ runs the same test against a published copy.
 import { app, BrowserWindow } from 'electron';
 import fs from 'node:fs';
 import http from 'node:http';
@@ -17,7 +18,7 @@ const server = http.createServer((req, res) => {
 app.commandLine.appendSwitch('disable-renderer-backgrounding');
 app.whenReady().then(async () => {
   await new Promise((r) => server.listen(0, r));
-  const base = `http://127.0.0.1:${server.address().port}/handland/`;
+  const base = process.env.NET_BASE || `http://127.0.0.1:${server.address().port}/handland/`; // NET_BASE=<url> tests a published copy instead
   const wait = (ms) => new Promise((r) => setTimeout(r, ms));
   const open = async (name, url) => {
     const win = new BrowserWindow({ width: 1440, height: 900, show: false, useContentSize: true, webPreferences: { offscreen: true, backgroundThrottling: false, partition: `test-${name}` } });
