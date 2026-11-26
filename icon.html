@@ -1,0 +1,18 @@
+<!doctype html>
+<meta charset="utf-8">
+<title>Handland icon</title>
+<link rel="stylesheet" href="style.css">
+<style>
+  html, body { background: transparent !important; } body::before, body::after { display: none; }
+  .tile { position: fixed; inset: 9.8%; border-radius: 22.5%; background: repeating-conic-gradient(from 0deg at 50% 50%, #262b6a 0 15deg, #1a1e4e 15deg 30deg); box-shadow: inset 0 0 0 1.4vw #14121f, inset 0 0 0 2.8vw #ffd23f, inset 0 0 0 3.6vw #14121f, 0 1.5vw 3vw #0008; overflow: hidden; }
+  .tile .card { position: absolute; --cw: 36vw; left: 50%; top: 50%; }
+  .tile .card:nth-child(1) { transform: translate(-92%, -46%) rotate(-16deg); }
+  .tile .card:nth-child(2) { transform: translate(-8%, -46%) rotate(16deg); }
+  .tile .card:nth-child(3) { transform: translate(-50%, -54%); }
+</style>
+<div class="tile" id="tile"></div>
+<script type="module">
+  import { art, CARD_BACK } from './art.js';
+  const res = (t) => `<div class="card res t-${t}"><div class="cardface"><div class="ttl">${t}</div>${art(t)}<div class="typ">Resource</div></div></div>`;
+  document.getElementById('tile').innerHTML = res('Farmland') + res('Weapons') + `<div class="card back"><div class="cardface">${CARD_BACK}</div></div>`;
+</script>
