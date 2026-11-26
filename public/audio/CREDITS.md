@@ -1,0 +1,101 @@
+# Sound credits
+
+Every sound and music track in Handland is a recording shared on freesound.org under
+Creative Commons 0 (public domain dedication). Thank you to the people who recorded them.
+
+-  — "(Jazz Loop) Rusted Maid" — https://freesound.org/people/plasterbrain/sounds/464923/
+-  — "Aggressive Snatch.wav" — https://freesound.org/people/MTJohnson/sounds/444416/
+-  — "AllInPushChips.wav" — https://freesound.org/people/Joma86/sounds/532861/
+-  — "aww.wav" — https://freesound.org/people/phmiller42/sounds/124996/
+-  — "awwwww.mp3" — https://freesound.org/people/WhisperPotato/sounds/547589/
+-  — "Basic Fire whoosh" — https://freesound.org/people/LookIMadeAThing/sounds/260554/
+-  — "Blues Impro" — https://freesound.org/people/kasa90/sounds/162184/
+-  — "book slam" — https://freesound.org/people/Mydo1/sounds/198960/
+-  — "Breaking a glass bottle" — https://freesound.org/people/dasebr/sounds/212698/
+-  — "Camera Shutter" — https://freesound.org/people/roachpowder/sounds/170229/
+-  — "card.wav" — https://freesound.org/people/Zaxtor99/sounds/147532/
+-  — "cardDrop2.wav" — https://freesound.org/people/deathpie/sounds/19244/
+-  — "Cash Register Purchase" — https://freesound.org/people/Zott820/sounds/209578/
+-  — "Cheer 2.wav" — https://freesound.org/people/jayfrosting/sounds/333404/
+-  — "chip00" — https://freesound.org/people/SilverDubloons/sounds/817552/
+-  — "chip01" — https://freesound.org/people/SilverDubloons/sounds/817553/
+-  — "chip02" — https://freesound.org/people/SilverDubloons/sounds/817554/
+-  — "chip04" — https://freesound.org/people/SilverDubloons/sounds/817555/
+-  — "chip05" — https://freesound.org/people/SilverDubloons/sounds/817556/
+-  — "clatter00" — https://freesound.org/people/SilverDubloons/sounds/817557/
+-  — "clatter01" — https://freesound.org/people/SilverDubloons/sounds/817558/
+-  — "clatter02" — https://freesound.org/people/SilverDubloons/sounds/817559/
+-  — "clatter03" — https://freesound.org/people/SilverDubloons/sounds/817560/
+-  — "Click.wav" — https://freesound.org/people/kwahmah_02/sounds/256116/
+-  — "clock-tick-01.flac" — https://freesound.org/people/pbimal/sounds/534094/
+-  — "Coach whistle" — https://freesound.org/people/Chaos-Kid/sounds/817398/
+-  — "Coin dropping.wav" — https://freesound.org/people/Jace/sounds/17502/
+-  — "Crowd shock.wav" — https://freesound.org/people/deleted_user_2104797/sounds/324898/
+-  — "Cuffing.wav" — https://freesound.org/people/deoking/sounds/411696/
+-  — "desk bell center.mp3" — https://freesound.org/people/tonmayster/sounds/685111/
+-  — "DropCard00" — https://freesound.org/people/SilverDubloons/sounds/817539/
+-  — "DropCard01" — https://freesound.org/people/SilverDubloons/sounds/817540/
+-  — "DropCard02" — https://freesound.org/people/SilverDubloons/sounds/817541/
+-  — "DropCard03" — https://freesound.org/people/SilverDubloons/sounds/817542/
+-  — "DropCard04" — https://freesound.org/people/SilverDubloons/sounds/817543/
+-  — "DropCard05" — https://freesound.org/people/SilverDubloons/sounds/817544/
+-  — "flipCard.wav" — https://freesound.org/people/Splashdust/sounds/84322/
+-  — "Four Heartbeats HQ_BeatSmith.wav" — https://freesound.org/people/Lunardrive/sounds/22416/
+-  — "Fuze Switch Flick" — https://freesound.org/people/LordForklift/sounds/448394/
+-  — "Glass Smash.wav" — https://freesound.org/people/chewiesmissus/sounds/244238/
+-  — "Group Ooh 2" — https://freesound.org/people/CHallSmith/sounds/870651/
+-  — "Group_Yay_Cheer.wav" — https://freesound.org/people/Stevedrums/sounds/393402/
+-  — "hand_on_table" — https://freesound.org/people/nottooloud_1/sounds/787456/
+-  — "Jazz loop.wav" — https://freesound.org/people/FrankyBoomer/sounds/261100/
+-  — "knock1.wav" — https://freesound.org/people/florian_reinke/sounds/63535/
+-  — "Lounging - Smooth Keys.wav" — https://freesound.org/people/deleted_user_14795591/sounds/681097/
+-  — "Match strike" — https://freesound.org/people/Bertsz/sounds/524306/
+-  — "menu click" — https://freesound.org/people/Leszek_Szary/sounds/146721/
+-  — "paper flip 3.wav" — https://freesound.org/people/gynation/sounds/82379/
+-  — "Paper Rustle" — https://freesound.org/people/BenjaminNelan/sounds/353125/
+-  — "PickupCard00" — https://freesound.org/people/SilverDubloons/sounds/817546/
+-  — "PickupCard01" — https://freesound.org/people/SilverDubloons/sounds/817547/
+-  — "PickupCard02" — https://freesound.org/people/SilverDubloons/sounds/817548/
+-  — "PickupCard03" — https://freesound.org/people/SilverDubloons/sounds/817549/
+-  — "PickupCard04" — https://freesound.org/people/SilverDubloons/sounds/817550/
+-  — "PickupCard05" — https://freesound.org/people/SilverDubloons/sounds/817551/
+-  — "Poker Chip Drop" — https://freesound.org/people/Za-Games/sounds/540369/
+-  — "Real Coin Drop" — https://freesound.org/people/Rocotilos/sounds/343462/
+-  — "record_scratch.wav" — https://freesound.org/people/ludvique/sounds/71853/
+-  — "Satisfying Plastic Handle Unlock" — https://freesound.org/people/LordForklift/sounds/448393/
+-  — "Service Bell Ding" — https://freesound.org/people/Qvantor/sounds/879808/
+-  — "SFX Thrilling Build-Up and Hit 5 (Made at Paradise AIR).wav" — https://freesound.org/people/RutgerMuller/sounds/367668/
+-  — "shuffle00" — https://freesound.org/people/SilverDubloons/sounds/817569/
+-  — "shuffle01" — https://freesound.org/people/SilverDubloons/sounds/817570/
+-  — "shuffle02" — https://freesound.org/people/SilverDubloons/sounds/817571/
+-  — "shuffle03" — https://freesound.org/people/SilverDubloons/sounds/817572/
+-  — "shuffle04" — https://freesound.org/people/SilverDubloons/sounds/817573/
+-  — "shuffle05" — https://freesound.org/people/SilverDubloons/sounds/817574/
+-  — "Siren.ogg" — https://freesound.org/people/egomassive/sounds/536773/
+-  — "Slam on desk" — https://freesound.org/people/EggshellProdutions/sounds/718357/
+-  — "slideCard00" — https://freesound.org/people/SilverDubloons/sounds/817575/
+-  — "slideCard01" — https://freesound.org/people/SilverDubloons/sounds/817576/
+-  — "slideCard02" — https://freesound.org/people/SilverDubloons/sounds/817577/
+-  — "slideCard03" — https://freesound.org/people/SilverDubloons/sounds/817578/
+-  — "slideCard04" — https://freesound.org/people/SilverDubloons/sounds/817579/
+-  — "slideCard05" — https://freesound.org/people/SilverDubloons/sounds/817580/
+-  — "Small applause" — https://freesound.org/people/Breviceps/sounds/462362/
+-  — "Small Crowd pre-concert talking party bar walla talking" — https://freesound.org/people/JohnsonBrandEditing/sounds/243373/
+-  — "Snatching Dollar.wav" — https://freesound.org/people/MTJohnson/sounds/444432/
+-  — "SpeakEasy" — https://freesound.org/people/Bigvegie/sounds/592587/
+-  — "Success Fanfare Trumpets.mp3" — https://freesound.org/people/FunWithSound/sounds/456966/
+-  — "thud pint glass beer down on table wood knock door Vows.flac" — https://freesound.org/people/kyles/sounds/454222/
+-  — "tick00" — https://freesound.org/people/SilverDubloons/sounds/817581/
+-  — "tick01" — https://freesound.org/people/SilverDubloons/sounds/817582/
+-  — "tick02" — https://freesound.org/people/SilverDubloons/sounds/817583/
+-  — "tick03" — https://freesound.org/people/SilverDubloons/sounds/817584/
+-  — "tick04" — https://freesound.org/people/SilverDubloons/sounds/817585/
+-  — "tick05" — https://freesound.org/people/SilverDubloons/sounds/817586/
+-  — "tick06" — https://freesound.org/people/SilverDubloons/sounds/817587/
+-  — "traditional stamp.wav" — https://freesound.org/people/I.fekry/sounds/470710/
+-  — "Typewriter ding_near_mono.wav" — https://freesound.org/people/_stubb/sounds/406243/
+-  — "Vault 2" — https://freesound.org/people/lezaarth/sounds/445099/
+-  — "wah wah sad trombone.wav" — https://freesound.org/people/kirbydx/sounds/175409/
+-  — "Whoosh" — https://freesound.org/people/qubodup/sounds/60013/
+-  — "Wood Crack 1" — https://freesound.org/people/utsuru/sounds/183453/
+-  — "wood hammer, gavel, knock, pound, jury, court.mp3" — https://freesound.org/people/JohnsonBrandEditing/sounds/173941/

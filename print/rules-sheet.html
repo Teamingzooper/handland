@@ -1,0 +1,232 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Handland: rules for the card game</title>
+<style>
+  @font-face { font-family: 'Abril Fatface'; src: url('../public/fonts/abril-fatface-latin-400-normal.woff2') format('woff2'); }
+  @font-face { font-family: 'Barlow'; font-weight: 400; src: url('../public/fonts/barlow-latin-400-normal.woff2') format('woff2'); }
+  @font-face { font-family: 'Barlow'; font-weight: 600; src: url('../public/fonts/barlow-latin-600-normal.woff2') format('woff2'); }
+  @font-face { font-family: 'Barlow'; font-weight: 700; src: url('../public/fonts/barlow-latin-700-normal.woff2') format('woff2'); }
+  @font-face { font-family: 'Barlow Condensed'; font-weight: 700; src: url('../public/fonts/barlow-condensed-latin-700-normal.woff2') format('woff2'); }
+  @page { size: letter; margin: 0.42in; }
+  * { box-sizing: border-box; }
+  body { margin: 0; font: 400 8.5pt/1.26 'Barlow', Helvetica, Arial, sans-serif; color: #14121f; background: #fff; }
+  .page { break-after: page; }
+  .page:last-child { break-after: auto; }
+  header { display: flex; align-items: baseline; gap: 14pt; border-bottom: 2.5pt solid #14121f; padding-bottom: 4pt; margin-bottom: 8pt; }
+  h1 { font: 400 30pt/1 'Abril Fatface', Georgia, serif; margin: 0; }
+  header p { margin: 0; font: 700 9.5pt/1.2 'Barlow Condensed', sans-serif; letter-spacing: .14em; text-transform: uppercase; }
+  header .meta { margin-left: auto; text-align: right; }
+  .cols { column-count: 2; column-gap: 18pt; }
+  h2 { font: 400 13.5pt/1.1 'Abril Fatface', Georgia, serif; margin: 9pt 0 3pt; padding: 2pt 6pt; background: #14121f; color: #fff; break-after: avoid; }
+  h2:first-child { margin-top: 0; }
+  h3 { font: 700 9.5pt/1.2 'Barlow Condensed', sans-serif; letter-spacing: .12em; text-transform: uppercase; margin: 6pt 0 2pt; break-after: avoid; }
+  p { margin: 0 0 4pt; }
+  ul, ol { margin: 0 0 4pt; padding-left: 14pt; }
+  li { margin-bottom: 1.5pt; }
+  b { font-weight: 700; }
+  .box { border: 1.5pt solid #14121f; padding: 5pt 7pt; margin: 4pt 0 6pt; break-inside: avoid; }
+  .box.tint { background: #f3ecd8; }
+  table { width: 100%; border-collapse: collapse; font-size: 7.9pt; line-height: 1.18; break-inside: avoid; }
+  th { font: 700 8.4pt/1.2 'Barlow Condensed', sans-serif; letter-spacing: .1em; text-transform: uppercase; text-align: left; background: #14121f; color: #fff; padding: 3pt 5pt; }
+  td { border-bottom: .6pt solid #14121f; padding: 2.2pt 5pt; vertical-align: top; }
+  td.n { text-align: center; white-space: nowrap; }
+  .two { display: grid; grid-template-columns: 1fr 1fr; gap: 6pt; }
+  .small { font-size: 7.9pt; }
+  section { break-inside: avoid; }
+</style>
+</head>
+<body>
+
+<div class="page">
+<header>
+  <h1>Handland</h1>
+  <p>Trade face down. Lie if you dare. Corner the market.</p>
+  <p class="meta">2 to 6 players · about 15 minutes · card game rules</p>
+</header>
+<div class="cols">
+
+<section>
+<h2>Goal</h2>
+<p>Be the first to earn the agreed number of <b>Monopoly tokens</b>: 1 for a short game, 2 for a standard game, 3 for a long one. You earn a token by holding <b>five of one resource</b> for a full round without anyone breaking it up.</p>
+</section>
+
+<section>
+<h2>What is in the box</h2>
+<table>
+  <tr><th>Item</th><th>Count</th></tr>
+  <tr><td>Resource cards: Oil, Livestock, Farmland, Weapons, Workers</td><td class="n">14 each (70)</td></tr>
+  <tr><td>Action and Boost cards</td><td class="n">70</td></tr>
+  <tr><td>Hold markers: one HOLDING and one NOT HOLDING per player</td><td class="n">12</td></tr>
+  <tr><td>Heat tokens</td><td class="n">30</td></tr>
+  <tr><td>Cover tokens</td><td class="n">18</td></tr>
+  <tr><td>Monopoly tokens</td><td class="n">13</td></tr>
+  <tr><td>Boycott markers</td><td class="n">2</td></tr>
+</table>
+</section>
+
+<section>
+<h2>Setup</h2>
+<ol>
+  <li>Shuffle the resource deck and the Action/Boost deck separately. Each has its own discard pile.</li>
+  <li>Deal each player <b>5 resource cards</b>, face down in a row in front of them. These are your <b>slots</b>. You may look at your own at any time. Nobody else may.</li>
+  <li>Deal each player a <b>hand of 3</b> Action/Boost cards.</li>
+  <li>Give each player their two <b>Hold markers</b>. Everyone starts with no Heat and no Cover.</li>
+  <li>Pick a first player at random. Play goes clockwise.</li>
+</ol>
+<p class="small"><b>Never rearrange your row.</b> Cards keep their place, and new cards always join at the right end. (Heat turns cards face up from the left.)</p>
+</section>
+
+<section>
+<h2>Your turn</h2>
+<h3>1 · Start</h3>
+<ul>
+  <li>Flip your Hold marker. If it says HOLDING and you still have five of a kind, <b>score</b> (see Monopolies).</li>
+  <li>Refill every empty slot from the resource deck. Draw 1 Action/Boost card.</li>
+</ul>
+<h3>2 · Main, in any order</h3>
+<ul>
+  <li>Offer <b>one</b> trade.</li>
+  <li>Play as many hand cards as you like.</li>
+</ul>
+<h3>3 · End</h3>
+<ul>
+  <li>Discard down to your slot limit (5, plus Warehouses) and to 3 hand cards.</li>
+  <li>Place a Hold marker face down: <b>HOLDING</b> if you have five of a kind right now, otherwise <b>NOT HOLDING</b>.</li>
+</ul>
+<p class="small">There is no free way to swap resources. You change what you hold by trading, by paying for cards (the slot refills next turn) and by winning call-outs.</p>
+</section>
+
+<section>
+<h2>Trading</h2>
+<ol>
+  <li>Pick a player. Put one resource face down in the middle, <b>say what it is</b> (you may lie) and say what you want back.</li>
+  <li>They choose one:
+    <ul>
+      <li><b>Decline.</b> Your card comes back.</li>
+      <li><b>Trade.</b> They put one of their resources face down and say what it is (they may lie too). Go to step 3.</li>
+      <li><b>Call scam.</b> They put one of their resources down as a stake and call your card. Flip yours.</li>
+    </ul>
+  </li>
+  <li>If they traded, you choose: <b>accept</b> and swap the two cards unseen, or <b>call scam</b> on their card and flip it. If they said something <b>other than what you asked for</b>, you may instead <b>call it off</b>: both cards go back.</li>
+</ol>
+<div class="box tint">
+  <b>When a card is flipped by a call:</b><br>
+  It was a <b>lie</b>: the caller keeps both cards on the table.<br>
+  It was <b>honest</b>: the accused keeps both cards, and the caller takes the call-out penalty.<br>
+  A card put into a trade leaves a <b>gap</b> in your row. If it comes back, it goes back into that gap.
+</div>
+<h3>Open offers</h3>
+<p>Instead of naming a player, offer your card <b>to the table</b>. The offer goes clockwise, starting on your left. Each player in turn may trade, call scam, or pass. The <b>first player who answers gets the trade</b>. If everyone passes, the card comes back. Either way, that was your one trade.</p>
+</section>
+
+<section>
+<h2>Paying for cards</h2>
+<p>Most cards have a cost. Put that many resources <b>face down</b> and say they are what the card asks for. You may pay with the wrong cards: that is a bluff.</p>
+<p>Starting on your left and going clockwise, each other player says <b>pass</b> or <b>call</b>. The first to call makes the call; flip the payment.</p>
+<ul>
+  <li><b>Caught lying:</b> your card is wasted (discard it) and the caller takes the payment cards.</li>
+  <li><b>Called but honest:</b> your card works, the payment is discarded, and the caller takes the call-out penalty.</li>
+  <li><b>Everyone passes:</b> your card works. The payment goes to the discard pile face down. Nobody may look.</li>
+</ul>
+</section>
+
+<section>
+<h2>Small print</h2>
+<ul>
+  <li><b>Empty deck:</b> shuffle its discard pile.</li>
+  <li><b>Calling a trade offer</b> needs a stake: put one of your own resources down before the flip.</li>
+  <li><b>Too many resources:</b> keep them until the end of your own turn, then discard down.</li>
+  <li><b>Alibi</b> on a trade call ends that trade (cards go back). On a payment call, the payment counts as let through.</li>
+  <li><b>Injunction</b> delays scoring one turn. If the holder still has five a round later, it scores then. Nobody is told whether anything was stopped.</li>
+  <li><b>Winning:</b> the game ends the moment someone takes their last needed token.</li>
+</ul>
+</section>
+
+</div>
+</div>
+
+<div class="page">
+<div class="cols">
+
+<section>
+<h2>Heat and Cover</h2>
+<p>Heat and Cover are two ends of one scale. <b>Nobody ever has both.</b></p>
+<div class="two">
+  <div class="box"><b>You called and were right</b><br>Remove 1 Heat. If you have none, gain 1 Cover (most 3).</div>
+  <div class="box"><b>You called and were wrong</b><br>Spend 1 Cover. If you have none, gain 1 Heat (most 5). Already at 5: your <b>leftmost card is destroyed</b>.</div>
+</div>
+<p><b>Heat exposes you.</b> For each Heat you have, one of your resources lies <b>face up</b>, starting from the left of your row. New cards always join at the right. If a face-up card leaves, turn the next one over.</p>
+<p><b>Cover</b> does nothing by itself. It soaks up your next wrong calls.</p>
+</section>
+
+<section>
+<h2>Monopolies and the hold</h2>
+<ul>
+  <li>At the <b>end of your turn</b> you place a Hold marker face down. HOLDING means you have five of one resource right now. A Duplicator makes its card count as 2.</li>
+  <li>If you still have five of that resource when your <b>next turn starts</b>, flip the marker, show your resources, discard the five (the fewest cards that add up to five), take a <b>Monopoly token</b> and refill your slots.</li>
+  <li>If you dropped below five at any moment in between, the hold is <b>broken</b>. Say nothing. On your turn, flip the marker and carry on; there is no penalty.</li>
+  <li>You must place HOLDING when you have five of a kind, and NOT HOLDING when you do not.</li>
+</ul>
+<div class="box tint">
+  <b>Whistleblower.</b> Anyone may play it at any moment, even in the middle of someone else's trade. Name a player.<br>
+  <b>Right</b> (they can show five of a kind right now, whatever their marker says): they show you all their resources, and you take any two for yourself.<br>
+  <b>Wrong</b> (anything else): you take the wrong-call penalty.<br>
+  Then the game carries on from where it stopped.
+</div>
+</section>
+
+<section>
+<h2>Monopoly powers</h2>
+<p class="small">When you score, you may use that resource's power <b>once, right then</b>. It is free, cannot be called, and you may skip it. The winning token has no power.</p>
+<table>
+  <tr><th>Scored</th><th>Power</th><th>What it does</th></tr>
+  <tr><td>Oil</td><td><b>Fracking</b></td><td>Draw 2 extra Action or Boost cards.</td></tr>
+  <tr><td>Livestock</td><td><b>Stampede</b></td><td>Every other player discards the rightmost card of their row and draws a new one.</td></tr>
+  <tr><td>Farmland</td><td><b>Harvest</b></td><td>Look at the top 3 resource cards. Keep one in your row; put the other two back on top in any order.</td></tr>
+  <tr><td>Weapons</td><td><b>Shakedown</b></td><td>Take one resource from a player of your choice, without looking first.</td></tr>
+  <tr><td>Workers</td><td><b>Boycott</b></td><td>Pick a player. No Action cards for them on their next turn (Boosts, Whistleblower and Alibi still allowed). Give them the Boycott marker until that turn ends.</td></tr>
+</table>
+</section>
+
+<section>
+<h2>Turn summary</h2>
+<div class="box">
+  <b>Start:</b> flip your marker and score if you held · refill slots · draw 1.<br>
+  <b>Main:</b> one trade · any number of cards.<br>
+  <b>End:</b> discard to limits · place a Hold marker.<br>
+  <b>Any time:</b> Whistleblower.
+</div>
+</section>
+
+<section>
+<h2>The cards</h2>
+<p class="small"><b>Action</b> cards are used once and discarded. <b>Boost</b> cards stay in front of you. "Free" cards need no payment and cannot be called.</p>
+<table>
+  <tr><th>Card</th><th>Cost</th><th>No.</th><th>What it does</th></tr>
+  <tr><td><b>Write-Off</b><br>Action</td><td>Free</td><td class="n">12</td><td>Discard up to 3 of your resources from the right end of your row and draw that many.</td></tr>
+  <tr><td><b>Forced Trade</b><br>Action</td><td>Weapons</td><td class="n">8</td><td>Steal one resource from another player. They get nothing back.</td></tr>
+  <tr><td><b>Whistleblower</b><br>Action</td><td>Free</td><td class="n">6</td><td>See the Whistleblower box. Playable at any time.</td></tr>
+  <tr><td><b>Espionage</b><br>Action</td><td>Free</td><td class="n">5</td><td>Look at one face-down resource of another player. Or, during a trade, look at the card put down for you.</td></tr>
+  <tr><td><b>Strike</b><br>Action</td><td>Workers</td><td class="n">5</td><td>Discard one of another player's Boosts.</td></tr>
+  <tr><td><b>Audit</b><br>Action</td><td>Workers</td><td class="n">4</td><td>Look at up to three of one player's face-down resources. Only you see them.</td></tr>
+  <tr><td><b>Injunction</b><br>Action</td><td>Oil</td><td class="n">4</td><td>Name a player. Their monopoly cannot score at the start of their next turn. Put this card in front of them until then.</td></tr>
+  <tr><td><b>Insider Tip</b><br>Action</td><td>Free</td><td class="n">4</td><td>Draw 2 cards, keep 1, discard the other.</td></tr>
+  <tr><td><b>Bribe</b><br>Action</td><td>Workers</td><td class="n">4</td><td>Remove 1 of your Heat. If you have none, gain 1 Cover.</td></tr>
+  <tr><td><b>Lawsuit</b><br>Action</td><td>Free</td><td class="n">3</td><td>Play it together with any call. If you are right, also take one of the liar's face-down resources without looking first.</td></tr>
+  <tr><td><b>Alibi</b><br>Action</td><td>Free</td><td class="n">3</td><td>When you are called out, or the whistle is blown on you: play this to cancel it. Nothing is turned over; nobody is penalised.</td></tr>
+  <tr><td><b>Warehouse</b><br>Boost</td><td>Farmland</td><td class="n">4</td><td>+1 resource slot (+2 if Expanded).</td></tr>
+  <tr><td><b>Duplicator</b><br>Boost</td><td>Livestock</td><td class="n">4</td><td>Tuck under one of your resources: it counts as 2 (3 if Expanded). If another player takes or destroys that card, move it under another of yours. If you give the card up yourself, it goes too.</td></tr>
+  <tr><td><b>Expansion</b><br>Boost</td><td>Oil</td><td class="n">2</td><td>Attach to one of your other Boosts: +1 to its effect. No Boost? Draw 2 cards instead.</td></tr>
+  <tr><td><b>Front Company</b><br>Boost</td><td>Weapons</td><td class="n">2</td><td>Turn one fewer card face up for Heat (two fewer if Expanded).</td></tr>
+</table>
+</section>
+
+
+
+</div>
+</div>
+
+</body>
+</html>

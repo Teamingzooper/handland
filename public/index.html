@@ -1,0 +1,80 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="theme-color" content="#14173a">
+<title>Handland</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<!-- Ink filters: they roughen flat shapes so stamps, banners and the logo look printed by hand rather than drawn by a computer. -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs>
+  <filter id="inkRough" x="-5%" y="-8%" width="110%" height="116%"><feTurbulence type="fractalNoise" baseFrequency="0.035" numOctaves="3" seed="3" result="n"/><feDisplacementMap in="SourceGraphic" in2="n" scale="5" xChannelSelector="R" yChannelSelector="G"/></filter>
+  <filter id="inkSoft" x="-5%" y="-8%" width="110%" height="116%"><feTurbulence type="fractalNoise" baseFrequency="0.05" numOctaves="2" seed="11" result="n"/><feDisplacementMap in="SourceGraphic" in2="n" scale="2.6" xChannelSelector="R" yChannelSelector="G"/></filter>
+  <filter id="inkStamp" x="-10%" y="-12%" width="120%" height="124%">
+    <feTurbulence type="fractalNoise" baseFrequency="0.03" numOctaves="2" seed="8" result="warp"/>
+    <feDisplacementMap in="SourceGraphic" in2="warp" scale="7" xChannelSelector="R" yChannelSelector="G" result="warped"/>
+    <feTurbulence type="fractalNoise" baseFrequency="0.85" numOctaves="2" seed="5" result="grain"/>
+    <feColorMatrix in="grain" type="matrix" values="0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 -2.3 2.05" result="holes"/>
+    <feComposite in="warped" in2="holes" operator="in"/>
+  </filter>
+</defs></svg>
+<div id="room"></div>
+<div id="app"></div>
+<div id="banner" class="hidden"></div>
+<div id="reveal" class="hidden"></div>
+<div id="toast" class="hidden"></div>
+<div id="inspect" class="hidden"></div>
+<div id="zoom" class="hidden"></div>
+<div id="sheet" class="hidden"></div>
+<div id="rotate"><div><div class="ph"></div><b>Turn your phone sideways</b><span>The table needs the long side of the screen.</span></div></div>
+
+<div id="rules" class="modal hidden">
+  <div class="sheet">
+    <button class="x" data-do="closeRules">✕</button>
+    <h2>How to play Handland</h2>
+    <p><b>Goal:</b> be the first to collect the chosen number of <b>Monopoly tokens</b> (1, 2 or 3). You score a token by holding <b>5 of the same resource</b> for a full round.</p>
+    <h3>What you have</h3>
+    <ul>
+      <li><b>Resources</b> (5 slots): Oil, Livestock, Farmland, Weapons, Workers. Other players see only the backs.</li>
+      <li><b>Hand</b> (3 cards): Action cards (one-shot) and Boost cards (stay on the table).</li>
+      <li><b>Heat</b> and <b>Cover</b> tokens, which track how your call-outs have gone.</li>
+    </ul>
+    <h3>Your turn</h3>
+    <ol>
+      <li>You automatically refill any empty resource slots and draw 1 hand card.</li>
+      <li>In any order: <b>offer one trade</b> and <b>play cards</b>.</li>
+      <li><b>End your turn</b>, discarding down to your slot and hand limits. The only ways to change your resources are trading, paying for cards, and winning call-outs.</li>
+    </ol>
+    <h3>Trading (face down)</h3>
+    <p>You put a card face down and <b>say</b> what it is. You may lie. The other player puts a card down and says what theirs is. Either side may <b>call scam</b> on the other:</p>
+    <ul>
+      <li>They lied → the caller keeps <b>both</b> cards.</li>
+      <li>They were honest → the accused keeps <b>both</b> cards, and the caller takes a penalty.</li>
+    </ul>
+    <p>If they say they are giving something <b>other than what you asked for</b>, you may also <b>call the trade off</b>: both cards go back. A card put into a trade leaves its place in your row empty and returns to that same place.</p>
+    <h3>Paying for cards (also face down)</h3>
+    <p>Most cards cost resources. You pay face down and <b>say</b> you paid the right thing. Anyone may call your bluff. Caught lying → your card is wasted and the caller takes your payment. Wrongly accused → your card works and the caller takes a penalty. Paying is also how you get rid of resources you don't want.</p>
+    <h3>Heat and Cover</h3>
+    <ul>
+      <li><b>Wrong call-out:</b> lose 1 Cover. No Cover? Gain 1 Heat.</li>
+      <li><b>Right call-out:</b> lose 1 Heat. No Heat? Gain 1 Cover (max 3).</li>
+      <li>Each Heat (max 5) turns one of your resource cards <b>face up</b> for everyone, starting from the left.</li>
+      <li>At <b>5 Heat</b> with no Cover, a wrong call <b>destroys your leftmost card</b> instead.</li>
+    </ul>
+    <h3>Monopolies</h3>
+    <p>End your turn with 5 of a kind and a secret one-round hold begins. Nobody is told. If you still have all 5 at the start of your next turn, you reveal your cards, score <b>1 Monopoly token</b>, discard those 5 and draw 5 new ones. Tokens are score only. If a trade, a Forced Trade or a lost call-out drops you below 5 at any point in the round, the hold is broken. Heat is dangerous here: face-up cards show everyone what you are collecting.</p>
+    <h3>Monopoly powers</h3>
+    <p>When you score a monopoly you may use that resource's power once, right then, before anything else on your turn. It is free, so nobody can call it. The winning token has no power: the game is over.</p>
+    <div id="powerlist"></div>
+    <h3>Cards</h3>
+    <div id="cardlist"></div>
+  </div>
+</div>
+<script type="module" src="client.js"></script>
+</body>
+</html>
