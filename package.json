@@ -1,6 +1,6 @@
 {
   "name": "handland",
-  "version": "0.19.0",
+  "version": "0.20.0",
   "description": "Handland — a bluffing, trading, monopoly-racing card game (prototype)",
   "type": "module",
   "private": true,
@@ -11,7 +11,8 @@
     "app": "electron .",
     "package": "bash scripts/package.sh",
     "site": "bash scripts/site.sh",
-    "rulebook": "electron scripts/rulebook.mjs"
+    "rulebook": "electron scripts/rulebook.mjs",
+    "cards": "electron scripts/cards-pdf.mjs"
   },
   "devDependencies": {
     "@fontsource/abril-fatface": "^5.3.0",

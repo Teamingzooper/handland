@@ -612,3 +612,18 @@ test('Whistleblower is right on five of a kind even before the hold has formally
   assert.equal(s.pending.kind, 'whistle');
   assert.equal(s.players[0].heat, 0);
 });
+
+test('a game keeps count of right Whistleblowers and of the monopoly powers used, for the end-of-game payout', () => {
+  const s = game(2);
+  setRes(s, 0, ['Livestock', 'Farmland']); setRes(s, 1, ['Oil', 'Oil', 'Oil', 'Oil', 'Oil']);
+  s.players[0].hand = [{ id: 990, kind: 'whistleblower' }]; s.players[1].hand = [];
+  ok(applyAction(s, 0, { type: 'whistle', target: 1 }));
+  assert.equal(s.players[0].stats.whistles, 1);
+  const t = scoreMonopoly('Oil', 3);
+  ok(applyAction(t, 0, { type: 'power', use: true }));
+  assert.deepEqual(t.players[0].stats.powers, ['Oil']);
+  const u = scoreMonopoly('Oil', 3);
+  ok(applyAction(u, 0, { type: 'power', use: false }));
+  assert.deepEqual(u.players[0].stats.powers, [], 'a power that was skipped does not count');
+  assert.equal(typeof viewFor(t, 0).gid, 'number');
+});

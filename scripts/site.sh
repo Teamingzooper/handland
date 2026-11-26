@@ -18,5 +18,6 @@ if command -v ffmpeg >/dev/null; then
   grep -q "const ext = () => '.mp3';" site/sfx.js || { echo "could not point the sound code at the MP3 files"; exit 1; }
 fi
 cp print/Handland-rulebook.pdf site/rulebook.pdf 2>/dev/null || true   # the illustrated rulebook, at <site>/rulebook.pdf
+cp print/Handland-cards.pdf site/cards.pdf 2>/dev/null || true         # the print-and-play card sheets, at <site>/cards.pdf
 touch site/.nojekyll                     # GitHub Pages: serve the files as they are
 du -sh site | awk '{print "built site/ (" $1 ")"}'

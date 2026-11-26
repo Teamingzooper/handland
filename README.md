@@ -5,6 +5,7 @@ full round. Every trade is made face down, anything you say about a card may be 
 
 **Play in a browser:** https://teamingzooper.github.io/handland/
 **Rulebook (PDF):** https://teamingzooper.github.io/handland/rulebook.pdf
+**Print and play (PDF):** https://teamingzooper.github.io/handland/cards.pdf (all 154 cards and the tokens, to cut out)
 
 ## Ways to play
 
@@ -22,6 +23,7 @@ npm start          # the game server, then open http://localhost:8790
 npm test           # the rules tests
 npm run site       # build the static web version into site/
 npm run rulebook   # rebuild print/Handland-rulebook.pdf (needs: npm install)
+npm run cards      # rebuild print/Handland-cards.pdf, the print-and-play sheets
 ```
 
 ## How it is put together

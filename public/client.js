@@ -140,8 +140,8 @@ function enter(out) {
 function leaveGame() {
   if (session && remote) { const link = remote; remote = null; stopLocal?.(); stopLocal = null; link.api('leave', { token: session.token }); setTimeout(() => link.close(), 500); }
   else if (session && local) { try { local.api('leave', { code: session.code, token: session.token }); } catch { /* the room is already gone */ } stopLocal?.(); stopLocal = null; }
-  if (hosting) { hosting.stop(); if (hosting.restore) local = null; hosting = null; } // the online table closes with its host
   else if (session) fetch('api/leave', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ code: session.code, token: session.token }), keepalive: true }).catch(() => {});
+  if (hosting) { hosting.stop(); if (hosting.restore) local = null; hosting = null; } // the online table closes with its host
   stream?.close();
   sessionStorage.removeItem('handland');
   session = null; P = null; shownReveal = null; lastFx = null; prevTokens = null;
@@ -919,6 +919,63 @@ function setNames(names) {
 const PACKS = [{ id: 'p500', tokens: 500, price: '$4.99' }, { id: 'p1200', tokens: 1200, price: '$9.99', note: 'Best seller' }, { id: 'p2600', tokens: 2600, price: '$19.99', note: 'Best value' }];
 let wallet = { tokens: 0, owned: [], ...JSON.parse(localStorage.getItem('handland-wallet') || '{}') };
 const saveWallet = () => localStorage.setItem('handland-wallet', JSON.stringify(wallet));
+// ---------- earning Shop Tokens by playing ----------
+// Every finished game pays a little: more for winning, for monopolies scored and for bluffs caught, and more again
+// against harder bots and in longer games. Feats pay once each. What has been paid is kept on this device
+// (`ledger`), next to the wallet, so a game is never paid twice.
+const FEATS = [
+  { id: 'tutorial', name: 'First deal', text: 'Finish the tutorial round.', tokens: 100, test: (g) => g.tutorial },
+  { id: 'win', name: 'In business', text: 'Win a game.', tokens: 150, test: (g) => g.won },
+  { id: 'monopoly', name: 'Cornered', text: 'Score a monopoly.', tokens: 50, test: (g) => g.tokens >= 1 },
+  { id: 'hound', name: 'Bloodhound', text: 'Catch three bluffs in one game.', tokens: 100, test: (g) => g.right >= 3 },
+  { id: 'whistle', name: 'Whistle while you work', text: 'Blow the whistle on five of a kind.', tokens: 100, test: (g) => g.whistles >= 1 },
+  { id: 'clean', name: 'Clean hands', text: 'Win without telling a single lie.', tokens: 150, test: (g) => g.won && g.lies === 0 },
+  { id: 'liar', name: 'Silver tongue', text: 'Win after five or more lies, never caught.', tokens: 150, test: (g) => g.won && g.lies >= 5 && g.caught === 0 },
+  { id: 'cool', name: 'Cool customer', text: 'Win with no Heat on you.', tokens: 100, test: (g) => g.won && g.heat === 0 },
+  { id: 'hard', name: 'Hard bargain', text: 'Win against Hard bots.', tokens: 200, test: (g) => g.won && g.solo && g.difficulty >= 2 },
+  { id: 'insane', name: 'Out of their league', text: 'Win against Insane bots.', tokens: 400, test: (g) => g.won && g.solo && g.difficulty >= 3 },
+  { id: 'full', name: 'Full table', text: 'Win a six-player game.', tokens: 150, test: (g) => g.won && g.players >= 6 },
+  { id: 'long', name: 'The long con', text: 'Win a Long game (first to 3).', tokens: 150, test: (g) => g.won && g.target >= 3 },
+  { id: 'company', name: 'Good company', text: 'Finish a game with another person.', tokens: 150, test: (g) => g.humans >= 2 },
+  { id: 'powers', name: 'Five powers', text: 'Use all five monopoly powers, over any number of games.', tokens: 250, test: (g, led) => DEF.TYPES.every((t) => led.powers.includes(t)) },
+];
+let ledger = { feats: {}, powers: [], last: null, ...JSON.parse(localStorage.getItem('handland-earned') || '{}') };
+const saveLedger = () => localStorage.setItem('handland-earned', JSON.stringify(ledger));
+// The game on screen has ended: work out what it paid, pay it once, and return the breakdown to show.
+function settle(v) {
+  if (P.spectator || v.phase !== 'over') return null;
+  if (ledger.last?.gid === v.gid) return ledger.last; // already paid, also after a reload
+  const me = v.players[v.you], st = me.stats, humans = P.seats.filter((x) => !x.isBot).length;
+  const g = { tutorial: !!P.coach, won: v.winner === v.you, tokens: me.banked.length, right: st.right, whistles: st.whistles || 0, lies: st.lies, caught: st.caught, heat: me.heat, players: v.players.length, target: v.winTarget, humans, solo: humans <= 1, difficulty: P.difficulty ?? 1 };
+  for (const t of st.powers || []) if (!ledger.powers.includes(t)) ledger.powers.push(t);
+  const lines = [], many = (n, one, more) => `${n} ${n === 1 ? one : more}`;
+  if (!g.tutorial) {
+    lines.push(['Played to the end', 10]);
+    if (g.won) lines.push(['Won the game', 40]);
+    if (g.tokens) lines.push([`${many(g.tokens, 'monopoly', 'monopolies')} scored`, g.tokens * 10]);
+    if (g.right) lines.push([`${many(Math.min(6, g.right), 'bluff', 'bluffs')} caught`, Math.min(6, g.right) * 5]);
+    if (g.whistles) lines.push([`${many(g.whistles, 'right Whistleblower', 'right Whistleblowers')}`, g.whistles * 10]);
+  }
+  const mult = g.tutorial ? 1 : (g.solo ? [0.5, 1, 1.5, 2][g.difficulty] : 1.5) * [0.6, 1, 1.4][g.target - 1];
+  const why = `${g.solo ? `${['Easy', 'Normal', 'Hard', 'Insane'][g.difficulty]} bots` : 'Played with people'} · ${['short', 'standard', 'long'][g.target - 1]} game`;
+  const play = Math.round((lines.reduce((n, l) => n + l[1], 0) * mult) / 5) * 5;
+  const feats = FEATS.filter((f) => !ledger.feats[f.id] && (g.tutorial ? f.id === 'tutorial' : f.id !== 'tutorial') && f.test(g, ledger));
+  for (const f of feats) ledger.feats[f.id] = 1;
+  const total = play + feats.reduce((n, f) => n + f.tokens, 0);
+  ledger.last = { gid: v.gid, lines, mult: +mult.toFixed(2), why, play, feats: feats.map((f) => f.id), total };
+  wallet.tokens += total;
+  saveWallet(); saveLedger();
+  if (total) setTimeout(() => { sfx.coin(); const el = document.querySelector('.earned'); if (el) burstAt(el, 'coin', 26); }, 1600); // the coins land once, when the panel first shows
+  return ledger.last;
+}
+function earnedHtml(e) {
+  if (!e) return '';
+  const feat = (id) => FEATS.find((f) => f.id === id);
+  return `<div class="earned"><div class="et"><span>Earned</span><span class="etot">${tok(e.total)} <small>Shop Tokens</small></span></div>
+    ${e.lines.map(([t, n]) => `<div class="el"><span>${t}</span><b>${n}</b></div>`).join('')}
+    ${e.lines.length && e.mult !== 1 ? `<div class="el dim"><span>${e.why}</span><b>×${e.mult}</b></div>` : ''}
+    ${e.feats.map((id) => `<div class="el feat"><span><em>Feat</em> ${feat(id).name}</span><b>${feat(id).tokens}</b></div>`).join('')}</div>`;
+}
 const owns = (id) => id === 'backroom' || id === 'classic' || id === 'none' || wallet.owned.includes(id) || myDecks.some((d) => d.id === id);
 const tok = (n) => `<span class="stok"></span> ${n}`;
 let modal = null; // { title, html, yes, onYes }
@@ -934,15 +991,17 @@ function shopScreen() {
       ${owns(it.id) ? `<div class="have">${it.price ? 'Owned' : 'Free · owned'}</div>` : `<button class="btn sm ${wallet.tokens >= it.price ? '' : 'ghost'}" data-do="buyItem" data-id="${it.id}">Buy · ${tok(it.price)}</button>`}</div>`;
   return `<div class="shop" data-noskin>
     <div class="head"><div class="logo sm">Shop</div><div class="wallet">${tok(wallet.tokens)} <small>Shop Tokens</small></div><button class="btn ghost" data-do="homeBack">Back</button></div>
-    <h3>1 · Get Shop Tokens</h3>
+    <h3>1 · Earn Shop Tokens <small>Every finished game pays. Winning, monopolies and caught bluffs pay more; harder bots and longer games multiply it.</small></h3>
+    <div class="feats">${FEATS.map((f) => `<div class="feat ${ledger.feats[f.id] ? 'done' : ''}"><b>${f.name}</b><span>${f.text}</span><em>${ledger.feats[f.id] ? 'Done' : tok(f.tokens)}</em></div>`).join('')}</div>
+    <h3>2 · Or buy Shop Tokens</h3>
     <div class="packs">${PACKS.map((p) => `<div class="good pack"><div class="amt">${tok(p.tokens)}</div><div class="ds">${p.note || 'Starter'}</div><button class="btn sm" data-do="buyPack" data-id="${p.id}">${p.price}</button></div>`).join('')}</div>
-    <h3>2 · Theme packs <small>The table and the room. The host's theme is what everyone at the table sees.</small></h3>
+    <h3>3 · Theme packs <small>The table and the room. The host's theme is what everyone at the table sees.</small></h3>
     <div class="goods">${THEMES.map((t) => good(t, 'theme')).join('')}</div>
-    <h3>3 · Backdrops <small>The whole room around the table.</small></h3>
+    <h3>4 · Backdrops <small>The whole room around the table.</small></h3>
     <div class="goods">${BACKDROPS.map((b) => good(b, 'bg')).join('')}</div>
-    <h3>4 · Deck skins <small>Card backs and card paper, for every card in the game.</small></h3>
+    <h3>5 · Deck skins <small>Card backs and card paper, for every card in the game.</small></h3>
     <div class="goods">${DECKS.map((d) => good(d, 'deck')).join('')}</div>
-    <h3>5 · Make your own deck <small>Free. Your photos, your names, your colours.</small></h3>
+    <h3>6 · Make your own deck <small>Free. Your photos, your names, your colours.</small></h3>
     <button class="btn" data-do="maker">Open the Deck Maker</button>
     <p class="fine">To use what you own, open Customize on the main menu. What you pick there is what your table looks like whenever you host. Cosmetics never change the rules.</p>
     <button class="btn ghost" data-do="custom">Open Customize</button>
@@ -1330,6 +1389,7 @@ function panel(v, me, myFreeTurn) {
     return `<h2>${won ? 'You cornered the market' : `${name(v.winner)} cornered the market`}</h2>
       <table class="stats"><tr><th>Player</th><th>Tokens</th><th>Lies told</th><th>Times caught</th><th>Calls right</th><th>Calls wrong</th></tr>
       ${v.players.map((p) => `<tr class="${p.id === v.winner ? 'win' : ''}"><td>${esc(p.name)}${p.id === v.you ? ' (you)' : ''}${award(p)}</td><td>${p.banked.length}</td><td>${p.stats.lies}</td><td>${p.stats.caught}</td><td>${p.stats.right}</td><td>${p.stats.wrong}</td></tr>`).join('')}</table>
+      ${earnedHtml(settle(v))}
       <div class="actions">${P.you === P.host ? `<button class="btn" data-do="rematch">Play again</button><button class="btn ghost" data-do="toLobby">Back to lobby</button>` : '<span class="note">Waiting for the host…</span>'}</div>`;
   }
 
@@ -1749,7 +1809,7 @@ const DO = {
   buyItem: (id) => {
     const it = [...THEMES, ...DECKS, ...BACKDROPS].find((x) => x.id === id);
     if (!it || owns(id)) return;
-    if (wallet.tokens < it.price) { modal = { title: 'Not enough Shop Tokens', html: `<b>${it.name}</b> costs ${tok(it.price)} and you have ${tok(wallet.tokens)}. Get more under "1 · Get Shop Tokens" at the top of the Shop.` }; sfx.error(); render(); return; }
+    if (wallet.tokens < it.price) { modal = { title: 'Not enough Shop Tokens', html: `<b>${it.name}</b> costs ${tok(it.price)} and you have ${tok(wallet.tokens)}. Earn more by playing (see "1 · Earn Shop Tokens" at the top of the Shop), or buy them under "2".` }; sfx.error(); render(); return; }
     modal = { title: `Buy ${it.name}?`, html: `This spends ${tok(it.price)} of your ${tok(wallet.tokens)}. It is yours to keep.`, yes: `Buy for ${it.price}`, onYes: () => { wallet.tokens -= it.price; wallet.owned.push(id); saveWallet(); sfx.token(); toast(`${it.name} is yours. Pick it when you set up a game.`); } };
     render();
   },

@@ -285,6 +285,7 @@ function checkMonopolies(s) {
 export function newGame({ names, bots = [], seed = Date.now() & 0x7fffffff, winTarget = RULES.winTarget, difficulty = 1, without = [], marks = 'all' }) {
   const s = {
     marks: ['all', 'looks', 'none'].includes(marks) ? marks : 'all',
+    gid: seed | 0, // tells one game from the next (a rematch keeps the room code)
     rng: seed | 0, nextId: 1, logN: 0, log: [], fx: [], fxN: 0,
     players: [], turn: 0, turnNumber: 0, phase: 'main', winner: null, winTarget,
     pending: null, pendingN: 0, reveal: null, revealN: 0,
@@ -298,7 +299,7 @@ export function newGame({ names, bots = [], seed = Date.now() & 0x7fffffff, winT
   names.forEach((name, id) => {
     const p = {
       id, name, isBot: !!bots[id], res: [], hand: [], boosts: [], heat: 0, cover: 0,
-      banked: [], holding: null, enjoined: false, stats: { lies: 0, caught: 0, right: 0, wrong: 0 }, traded: false, known: {}, mem: {}, gaps: [], rowSig: '', caught: 0, cleared: 0, tell: newTell(),
+      banked: [], holding: null, enjoined: false, stats: { lies: 0, caught: 0, right: 0, wrong: 0, whistles: 0, powers: [] }, traded: false, known: {}, mem: {}, gaps: [], rowSig: '', caught: 0, cleared: 0, tell: newTell(),
       bot: { liar: (0.25 + rnd(s) * 0.4) * [0.7, 1, 1, 0.9][difficulty], sus: (0.7 + rnd(s) * 0.8) * [0.45, 1, 1.2, 1.3][difficulty], skill: difficulty },
     };
     for (let i = 0; i < RULES.baseSlots; i++) p.res.push(drawRes(s));
@@ -485,7 +486,7 @@ function finishCall(s, call) {
       fx(s, 'whistle', { p: p.id, target: accused.id, right: false, why: call.why });
       return;
     }
-    p.stats.right++;
+    p.stats.right++; p.stats.whistles++;
     accused.res.forEach((c) => learn(s, p.id, c));
     log(s, `${p.name} blows the whistle on ${accused.name}, and ${accused.name} DOES have five of a kind! ${p.name} gets to take two of their cards.`);
     fx(s, 'whistle', { p: p.id, target: accused.id, right: true, why: call.why });
@@ -704,6 +705,8 @@ const ACTIONS = {
     const others = s.players.filter((o) => o.id !== pid);
     const t = def.target ? s.players[a.target] : null;
     if (def.target && (!t || t.id === pid)) bad('Pick another player.');
+    if (w.res === 'Weapons' && !t.res.length) bad('That player has no resources.');
+    p.stats.powers.push(w.res);
     if (w.res === 'Oil') {
       for (let i = 0; i < 2; i++) p.hand.push(drawPlay(s));
       log(s, `${p.name} uses Fracking and draws 2 cards.`);
@@ -721,7 +724,6 @@ const ACTIONS = {
       fx(s, 'power', { p: pid, res: w.res });
       return;
     } else if (w.res === 'Weapons') {
-      if (!t.res.length) bad('That player has no resources.');
       const c = takeRes(s, t, t.res.some((r) => r.id === a.resId) ? a.resId : t.res[randInt(s, t.res.length)].id, true);
       p.res.push(c); recall(s, pid, c);
       log(s, `${p.name} shakes down ${t.name} and takes a card.`);
@@ -1092,7 +1094,7 @@ export function viewFor(s, pid) {
     pending = { kind: 'dup', n: c.n, player: c.player, boostId: c.boostId };
   }
   return {
-    you: pid, turn: s.turn, turnNumber: s.turnNumber, phase: s.phase, winner: s.winner, winTarget: s.winTarget, marks: s.marks,
+    you: pid, turn: s.turn, turnNumber: s.turnNumber, phase: s.phase, winner: s.winner, winTarget: s.winTarget, marks: s.marks, gid: s.gid,
     pending, reveal: s.reveal, decks: { res: s.resDeck.length, play: s.playDeck.length },
     fx: s.fx.filter((f) => f.to === null || f.to === pid),
     log: s.log.filter((l) => l.to === null || l.to === pid).slice(-80),

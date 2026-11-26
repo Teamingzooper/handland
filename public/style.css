@@ -1175,3 +1175,20 @@ body.phone .handcol .hint { white-space: normal; }
 /* ---------- v0.19: the Deal button never drops off the bottom of the bot-game menu ---------- */
 .setupfoot { position: sticky; bottom: 0; z-index: 2; margin: 0 calc(var(--u) * -1); padding: calc(var(--u) * .2) calc(var(--u) * 1) calc(var(--u) * .9); background: linear-gradient(transparent, #14173af2 calc(var(--u) * 1.4)); }
 .setupfoot .row { margin-top: calc(var(--u) * .7); }
+
+/* ---------- v0.20: earning Shop Tokens by playing ---------- */
+.earned { margin: calc(var(--u) * 1) 0 calc(var(--u) * .4); padding: calc(var(--u) * .8) calc(var(--u) * 1.1); background: #05060f66; border: calc(var(--u) * .16) solid var(--gold); border-radius: calc(var(--u) * .8); }
+.earned .et { display: flex; justify-content: space-between; align-items: center; font: 700 calc(var(--u) * .95)/1 var(--cond); letter-spacing: .18em; text-transform: uppercase; color: var(--gold); margin-bottom: calc(var(--u) * .5); padding-bottom: calc(var(--u) * .5); border-bottom: calc(var(--u) * .12) dashed #ffd23f80; }
+.earned .el { display: flex; justify-content: space-between; gap: 1em; font: 500 calc(var(--u) * 1.1)/1.5 var(--body); }
+.earned .el b { color: var(--ink); font-weight: 700; }
+.earned .el.dim { color: var(--dim); } .earned .el.dim b { color: var(--dim); }
+.earned .el.feat em { font: 700 .72em/1 var(--cond); letter-spacing: .12em; text-transform: uppercase; font-style: normal; background: var(--gold); color: var(--ink0); border-radius: 1em; padding: .22em .6em; margin-right: .4em; }
+.earned .etot { font: 400 calc(var(--u) * 1.9)/1 var(--display); letter-spacing: 0; text-transform: none; color: var(--gold); display: flex; align-items: center; gap: .4em; }
+.earned .etot small { font: 700 .42em var(--cond); letter-spacing: .14em; text-transform: uppercase; color: var(--dim); }
+.feats { display: grid; grid-template-columns: repeat(auto-fill, minmax(calc(var(--u) * 21), 1fr)); gap: calc(var(--u) * .8); margin-bottom: calc(var(--u) * 1.4); }
+.feats .feat { display: grid; grid-template-columns: 1fr auto; gap: .1em .8em; align-items: center; background: var(--panel); border: calc(var(--u) * .18) solid var(--line); border-radius: calc(var(--u) * .8); padding: calc(var(--u) * .7) calc(var(--u) * 1); }
+.feats .feat b { font: 400 calc(var(--u) * 1.35)/1.1 var(--display); color: var(--ink); }
+.feats .feat span { grid-column: 1; font: 500 calc(var(--u) * .95)/1.25 var(--body); color: var(--dim); }
+.feats .feat em { grid-column: 2; grid-row: 1 / 3; font: 700 calc(var(--u) * 1.1)/1 var(--cond); font-style: normal; color: var(--gold); display: inline-flex; align-items: center; gap: .3em; white-space: nowrap; }
+.feats .feat.done { border-color: var(--green); opacity: .75; } .feats .feat.done em { color: var(--green); letter-spacing: .12em; text-transform: uppercase; }
+body.phone.portrait .feats { grid-template-columns: 1fr; }

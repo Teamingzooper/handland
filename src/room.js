@@ -44,7 +44,7 @@ function botName(room) {
 
 function payload(room, idx) {
   return {
-    code: room.code, you: idx, spectator: idx < 0, host: room.seats.findIndex((s) => !s.isBot), started: !!room.state, winTarget: room.winTarget, marks: room.opts.marks, look: room.look,
+    code: room.code, you: idx, spectator: idx < 0, host: room.seats.findIndex((s) => !s.isBot), started: !!room.state, winTarget: room.winTarget, marks: room.opts.marks, difficulty: room.opts.difficulty, look: room.look,
     lan: lanFn(), seats: room.seats.map((s) => ({ name: s.name, isBot: s.isBot, avatar: s.avatar, online: s.isBot || s.streams.size > 0 })),
     msLeft: room.deadline ? Math.max(0, room.deadline - Date.now()) : null,
     coach: room.tutorial ? { text: BEATS[room.tutorial.i].text || '', step: room.tutorial.i, total: BEATS.length, next: BEATS[room.tutorial.i].who === 'info', done: !!BEATS[room.tutorial.i].done } : null,

@@ -107,6 +107,6 @@ On screen the scorer has 30 seconds to decide; at a table there is no timer. Com
 
 ## Not covered here
 
-- Printable card sheets. The card art already exists as vector drawings, so a print-and-play card PDF can
-  be generated from the game; that is a separate job.
+- Printable card sheets now exist: `print/Handland-cards.pdf` (`npm run cards`), 154 cards at playing-card size, nine
+  to a sheet with cut marks, separate backs for the two decks, and a token sheet. Not yet test-printed on paper.
 - Playtesting with people. The numbers were tuned with bot-vs-bot games only.
